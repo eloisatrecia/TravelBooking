@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+        content = "width = device-width, initial-scale=1.0">
+        <title>Log in Page</title>
+        <style>
+            body{
+                font-family: Arial, Helvetica, sans-serif;
+                display: flex;
+                justify-content: center;
+                height: 40vh;
+                background-color:#89bec3 ;
+            }
+            .container{
+                background: rgb(67, 117, 128);
+                padding: 50px;
+                box-shadow: 0px opx 10px rgb(0, 0,0,0,1);
+                border-radius: 8px;
+            }
+           input{
+               display: block;
+               width: 100%;
+               margin-bottom: 10px;
+               padding: 10px;
+            }
+            button{
+                width: 70%;
+                padding: 15px;
+                background:#3cb3bc ;
+                color: rgb(30, 42, 47);
+                border: none;
+                cursor:pointer;
+            }
+            button:disabled{
+            background:#dae0e7;
+            cursor:not-allowed;
+            }
+            .error{
+                color:beige;
+                margin-top: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Log in</h2>
+            <input type="text" id="username"
+            placeholder="Username">
+            <input type="password" id="password"
+            placeholder="Password">
+            <button id="loginBtn" onclick="login()">LogIn</button>
+            <p class="error" id="errorMessage"></p>
+        </div>
+
+        <script>
+            let cooldownActive = false;
+            function login(){
+                if(cooldownActive) return;
+
+                let username = document.getElementById("username").value;
+                let password = document.getElementById("password").value;
+                let errorMessage = document.getElementById("errorMessage");
+                let loginBtn= document.getElementById("loginBtn");
+
+                let validUsername = "admin123";
+                let validPassword = "admin123";
+
+                if(username === validUsername && password === validPassword){
+                    window.location.href="home.html";
+                }else{
+                    errorMessage.textContent= "Invalid Username or Password. Please wait 10 seconds.";
+                    loginBtn.disabled = false;
+                cooldownActive = true;
+            
+                setTimeout(() =>{
+                    errorMessage.textContent="";
+                  loginBtn.disabled = false;
+                    cooldownActive = false;
+                },10000);
+        }
+            }
+        </script>
+    </body>
+</html>
